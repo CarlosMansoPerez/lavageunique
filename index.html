@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lavage Unique – Marbella</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { --gold: #C9A84C; --gold-light: #E2C97E; --cyan: #00C4CC; --cyan-glow: rgba(0,196,204,0.15); }
+  * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: #0a0a0a; color: #e8e8e8; overflow-x: hidden; }
+  .gold { color: var(--gold); }
+  .gold-light { color: var(--gold-light); }
+  .cyan { color: var(--cyan); }
+
+  /* NAV GLASSMORPHISM */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,10,0.55);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid rgba(201,168,76,0.18);
+    transition: all 0.3s;
+  }
+  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 1.1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-size: 1.35rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.2rem; }
+  .nav-links a { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #b0b0b0; text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold-light); }
+  .lang { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; color: #777; cursor: pointer; display: flex; gap: 0.5rem; }
+  .lang span.active { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: #0a0a0a; padding: 0.5rem 1.2rem; border-radius: 2px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; position: relative; display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #111218 40%, #0d1117 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-car {
+    position: absolute; right: -2%; bottom: 0; width: 62%; height: 85%;
+    background: radial-gradient(ellipse 70% 60% at 60% 70%, rgba(201,168,76,0.07) 0%, transparent 70%);
+    display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
+  }
+  .hero-car svg { width: 100%; max-width: 700px; opacity: 0.92; }
+  .hero-content { position: relative; z-index: 2; max-width: 1200px; width: 100%; padding: 0 2rem; padding-top: 6rem; }
+  .hero-eyebrow { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
+  .hero-eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--gold); display: inline-block; }
+  .hero-title { font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 1.5rem; max-width: 580px; }
+  .hero-title .thin { font-weight: 200; display: block; }
+  .hero-sub { font-size: 0.88rem; font-weight: 300; color: #8a8a8a; letter-spacing: 0.06em; margin-bottom: 2.8rem; max-width: 380px; line-height: 1.8; }
+  .hero-btns { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: #0a0a0a; padding: 0.9rem 2.2rem; font-size: 0.72rem;
+    font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; border: none;
+    cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.3); }
+  .btn-secondary {
+    background: transparent; color: #c0c0c0; padding: 0.9rem 2.2rem; font-size: 0.72rem;
+    font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; border: 0.5px solid rgba(255,255,255,0.18);
+    cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 2rem; border-top: 0.5px solid rgba(255,255,255,0.07); }
+  .stat-val { font-size: 1.8rem; font-weight: 900; color: var(--gold); letter-spacing: -0.02em; }
+  .stat-label { font-size: 0.65rem; font-weight: 400; color: #666; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.2rem; }
+
+  /* SECTIONS */
+  section { padding: 7rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+  .section-label::before { content: ''; width: 1.5rem; height: 1px; background: var(--gold); display: inline-block; }
+  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 1rem; }
+  .section-sub { font-size: 0.85rem; font-weight: 300; color: #6a6a6a; line-height: 1.9; max-width: 520px; }
+
+  /* SERVICE CARDS */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .service-card {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .service-card:hover { transform: translateY(-6px); border-color: rgba(201,168,76,0.3); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+  .service-card:hover::before { opacity: 1; }
+  .service-card.featured { border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.05); }
+  .service-icon { font-size: 2.2rem; margin-bottom: 1.5rem; display: block; }
+  .service-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; background: var(--gold); color: #0a0a0a; padding: 0.25rem 0.7rem; display: inline-block; margin-bottom: 1.2rem; }
+  .service-name { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.8rem; }
+  .service-desc { font-size: 0.78rem; font-weight: 300; color: #6a6a6a; line-height: 1.9; margin-bottom: 1.5rem; }
+  .service-features { list-style: none; }
+  .service-features li { font-size: 0.74rem; color: #8a8a8a; padding: 0.5rem 0; border-top: 0.5px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 0.6rem; }
+  .service-features li::before { content: '✦'; color: var(--gold); font-size: 0.5rem; flex-shrink: 0; }
+
+  /* PRICING */
+  .pricing-section { padding: 7rem 2rem; background: rgba(255,255,255,0.01); }
+  .pricing-inner { max-width: 1200px; margin: 0 auto; }
+  .size-selector { display: flex; gap: 0.8rem; margin: 3rem 0 2.5rem; flex-wrap: wrap; }
+  .size-btn {
+    padding: 0.75rem 2rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; border: 0.5px solid rgba(255,255,255,0.15); background: transparent;
+    color: #888; cursor: pointer; transition: all 0.25s; font-family: 'Montserrat', sans-serif;
+  }
+  .size-btn.active { background: var(--gold); color: #0a0a0a; border-color: var(--gold); }
+  .size-btn:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .price-card {
+    background: rgba(255,255,255,0.03);
+    border: 0.5px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .price-card.featured-price {
+    border-color: rgba(201,168,76,0.35);
+    background: rgba(201,168,76,0.04);
+  }
+  .price-card:hover { transform: translateY(-4px); border-color: rgba(201,168,76,0.3); }
+  .price-tag { font-size: 3rem; font-weight: 900; color: var(--gold); letter-spacing: -0.04em; transition: all 0.35s ease; }
+  .price-tag .euro { font-size: 1.4rem; font-weight: 300; vertical-align: super; }
+  .price-tier { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #555; margin-bottom: 1rem; }
+  .price-name { font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0.5rem 0 1.5rem; }
+  .price-features { list-style: none; margin-bottom: 2rem; }
+  .price-features li { font-size: 0.74rem; color: #7a7a7a; padding: 0.5rem 0; border-top: 0.5px solid rgba(255,255,255,0.05); display: flex; gap: 0.6rem; align-items: flex-start; }
+  .price-features li span.check { color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+  .price-cta { width: 100%; padding: 0.85rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: all 0.25s; font-family: 'Montserrat', sans-serif; text-decoration: none; display: block; text-align: center; }
+  .price-cta-main { background: var(--gold); color: #0a0a0a; border: none; }
+  .price-cta-main:hover { background: var(--gold-light); }
+  .price-cta-outline { background: transparent; color: var(--gold); border: 0.5px solid var(--gold); }
+  .price-cta-outline:hover { background: rgba(201,168,76,0.08); }
+  .price-num { display: inline-block; transition: opacity 0.2s ease, transform 0.25s ease; }
+  .price-num.updating { opacity: 0; transform: translateY(6px); }
+
+  /* DOMICILIO */
+  .domicilio-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 520px; }
+  .domicilio-left { background: rgba(201,168,76,0.06); border: 0.5px solid rgba(201,168,76,0.15); padding: 5rem 3.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .domicilio-right { background: rgba(255,255,255,0.02); border: 0.5px solid rgba(255,255,255,0.06); border-left: none; padding: 5rem 3.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .domicilio-points { list-style: none; margin-top: 2rem; }
+  .domicilio-points li { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.05); }
+  .domicilio-points li .num { font-size: 1.5rem; font-weight: 900; color: var(--gold); opacity: 0.4; min-width: 2rem; }
+  .domicilio-points li .text h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .domicilio-points li .text p { font-size: 0.75rem; color: #666; line-height: 1.7; }
+
+  /* GALLERY */
+  .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 220px 220px; gap: 1rem; margin-top: 4rem; }
+  .gallery-item { position: relative; overflow: hidden; cursor: pointer; }
+  .gallery-item:first-child { grid-row: 1 / 3; }
+  .gallery-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; transition: transform 0.5s ease; }
+  .gallery-item:hover .gallery-img { transform: scale(1.04); }
+  .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 1.2rem; }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+  /* Gallery: dark pattern placeholders */
+  .g1 { background: linear-gradient(135deg, #13141a 0%, #1c1e26 50%, #111318 100%); }
+  .g2 { background: linear-gradient(160deg, #111620 0%, #161a22 100%); }
+  .g3 { background: linear-gradient(160deg, #141410 0%, #1e1c16 100%); }
+  .g4 { background: linear-gradient(160deg, #101414 0%, #141a1a 100%); }
+  .g5 { background: linear-gradient(160deg, #141418 0%, #1a1820 100%); }
+
+  /* CONTACT */
+  .contact-section { background: rgba(255,255,255,0.01); padding: 7rem 2rem; }
+  .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; }
+  .contact-info { }
+  .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.05); text-decoration: none; transition: all 0.2s; }
+  .contact-link:hover { padding-left: 0.5rem; }
+  .contact-link:hover .contact-icon { color: var(--gold); }
+  .contact-icon { font-size: 1rem; width: 1.5rem; color: #555; transition: color 0.2s; }
+  .contact-text h4 { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #555; margin-bottom: 0.2rem; }
+  .contact-text p { font-size: 0.85rem; font-weight: 400; color: #d0d0d0; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #555; display: block; margin-bottom: 0.5rem; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.1);
+    color: #d8d8d8; padding: 0.85rem 1rem; font-family: 'Montserrat', sans-serif; font-size: 0.82rem;
+    outline: none; transition: border-color 0.2s; resize: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select { appearance: none; cursor: pointer; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* FOOTER */
+  footer { border-top: 0.5px solid rgba(255,255,255,0.07); padding: 3rem 2rem; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+  .footer-logo { font-size: 1rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .footer-copy { font-size: 0.65rem; color: #444; letter-spacing: 0.08em; }
+  .footer-social { display: flex; gap: 1rem; }
+  .footer-social a { width: 2.2rem; height: 2.2rem; border: 0.5px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #666; text-decoration: none; font-size: 0.72rem; transition: all 0.2s; }
+  .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* DIVIDER */
+  .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent); }
+
+  /* Scroll animation */
+  .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 2px; }
+
+  @media (max-width: 900px) {
+    .services-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .domicilio-wrap { grid-template-columns: 1fr; }
+    .domicilio-right { border-left: 0.5px solid rgba(255,255,255,0.06); border-top: none; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:first-child { grid-row: auto; }
+    .hero-car { opacity: 0.3; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Lavage<span>Unique</span></div>
+    <div class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#precios">Precios</a>
+      <a href="#domicilio">A Domicilio</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div class="lang"><span class="active">ES</span><span>|</span><span>EN</span></div>
+      <a href="#contacto" class="nav-cta">Reservar</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <!-- Elegant car silhouette SVG -->
+  <div class="hero-car">
+    <svg viewBox="0 0 700 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 60px rgba(201,168,76,0.12));">
+      <g opacity="0.85">
+        <!-- Body -->
+        <path d="M80 220 Q90 180 160 150 Q220 128 320 120 Q400 114 470 118 Q530 122 570 140 Q610 158 625 185 Q635 200 635 220 Z" fill="url(#carGrad)" stroke="rgba(201,168,76,0.35)" stroke-width="1.2"/>
+        <!-- Roof -->
+        <path d="M200 150 Q230 108 290 95 Q360 82 420 88 Q470 92 505 118 Q525 132 540 148 Z" fill="url(#roofGrad)" stroke="rgba(201,168,76,0.2)" stroke-width="0.8"/>
+        <!-- Windshield -->
+        <path d="M218 148 Q245 110 295 97 Q355 85 418 90 Q458 93 500 118 Q475 130 440 140 Q380 150 300 152 Z" fill="rgba(100,160,200,0.08)" stroke="rgba(150,200,255,0.15)" stroke-width="0.5"/>
+        <!-- Side window -->
+        <path d="M305 152 Q360 144 440 140 Q480 137 500 140 Q495 155 470 160 Q420 165 340 165 Z" fill="rgba(100,160,200,0.06)" stroke="rgba(150,200,255,0.12)" stroke-width="0.5"/>
+        <!-- Hood line -->
+        <path d="M540 148 Q580 165 610 188" stroke="rgba(201,168,76,0.2)" stroke-width="0.8" fill="none"/>
+        <!-- Ground shadow -->
+        <ellipse cx="360" cy="242" rx="260" ry="14" fill="rgba(0,0,0,0.5)"/>
+        <!-- Wheels -->
+        <circle cx="195" cy="222" r="38" fill="#111" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"/>
+        <circle cx="195" cy="222" r="26" fill="#0d0d0d" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+        <circle cx="195" cy="222" r="10" fill="rgba(201,168,76,0.15)" stroke="rgba(201,168,76,0.5)" stroke-width="1"/>
+        <circle cx="530" cy="222" r="38" fill="#111" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"/>
+        <circle cx="530" cy="222" r="26" fill="#0d0d0d" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+        <circle cx="530" cy="222" r="10" fill="rgba(201,168,76,0.15)" stroke="rgba(201,168,76,0.5)" stroke-width="1"/>
+        <!-- Headlight -->
+        <path d="M600 185 Q618 190 628 200 L622 205 Q610 196 600 192 Z" fill="rgba(201,168,76,0.3)" stroke="rgba(201,168,76,0.5)" stroke-width="0.5"/>
+        <!-- Grill -->
+        <path d="M614 200 Q620 205 623 212 L616 214 Q612 208 608 204 Z" fill="rgba(201,168,76,0.15)"/>
+        <!-- Reflection line -->
+        <path d="M170 170 Q300 155 430 155 Q510 155 545 165" stroke="rgba(201,168,76,0.15)" stroke-width="0.8" fill="none"/>
+        <!-- Door line -->
+        <path d="M270 158 Q270 220 270 220" stroke="rgba(255,255,255,0.06)" stroke-width="0.5" fill="none"/>
+        <path d="M400 155 Q400 220 400 220" stroke="rgba(255,255,255,0.06)" stroke-width="0.5" fill="none"/>
+        <!-- Rim spokes -->
+        <line x1="195" y1="196" x2="195" y2="222" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+        <line x1="195" y1="222" x2="195" y2="248" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+        <line x1="169" y1="222" x2="221" y2="222" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+        <line x1="176" y1="203" x2="214" y2="241" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+        <line x1="214" y1="203" x2="176" y2="241" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+        <line x1="530" y1="196" x2="530" y2="222" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+        <line x1="530" y1="222" x2="530" y2="248" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+        <line x1="504" y1="222" x2="556" y2="222" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+        <line x1="511" y1="203" x2="549" y2="241" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+        <line x1="549" y1="203" x2="511" y2="241" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+      </g>
+      <defs>
+        <linearGradient id="carGrad" x1="80" y1="150" x2="640" y2="240" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#1a1c22"/>
+          <stop offset="50%" stop-color="#22242c"/>
+          <stop offset="100%" stop-color="#141618"/>
+        </linearGradient>
+        <linearGradient id="roofGrad" x1="200" y1="82" x2="540" y2="155" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#1c1e26"/>
+          <stop offset="100%" stop-color="#14161c"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Marbella · Costa del Sol</p>
+    <h1 class="hero-title">
+      <span class="thin">El arte del</span>
+      Detailing<br>
+      <span style="color: var(--gold);">de Lujo</span>
+    </h1>
+    <p class="hero-sub">Cuidado minucioso para vehículos de alta gama. Técnicas de vanguardia y productos premium donde cada detalle refleja la perfección.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">Reservar Ahora</a>
+      <a href="#precios" class="btn-secondary">Ver Precios</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val">500+</div><div class="stat-label">Vehículos tratados</div></div>
+      <div><div class="stat-val">100%</div><div class="stat-label">Satisfacción garantizada</div></div>
+      <div><div class="stat-val">A+</div><div class="stat-label">Productos Premium</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="fade-in">
+    <p class="section-label">Nuestros Servicios</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:end;">
+      <h2 class="section-title">Tratamientos<br><span class="gold">de Élite</span></h2>
+      <p class="section-sub">Cada servicio diseñado para restituir y preservar la perfección original de su vehículo, con una atención que va más allá de lo convencional.</p>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <span class="service-icon" aria-hidden="true">◈</span>
+      <span class="service-badge">Esencial</span>
+      <div class="service-name">Básico</div>
+      <p class="service-desc">La limpieza esencial que su vehículo merece, ejecutada con precisión milimétrica.</p>
+      <ul class="service-features">
+        <li>Limpieza de salpicadero</li>
+        <li>Aspirado completo interior</li>
+        <li>Lavado exterior premium</li>
+        <li>Secado sin arañazos</li>
+      </ul>
+    </div>
+    <div class="service-card featured fade-in">
+      <span class="service-icon" style="color:var(--gold)" aria-hidden="true">◈</span>
+      <span class="service-badge">Más Popular</span>
+      <div class="service-name" style="color:var(--gold-light)">Medio</div>
+      <p class="service-desc">Todo el paquete básico más un detailing completo que devuelve el brillo original.</p>
+      <ul class="service-features">
+        <li>Todo el servicio Básico</li>
+        <li>Detailing interior completo</li>
+        <li>Acondicionamiento de plásticos</li>
+        <li>Lustre de cristales</li>
+        <li>Ambientador premium</li>
+      </ul>
+    </div>
+    <div class="service-card fade-in">
+      <span class="service-icon" aria-hidden="true">◈</span>
+      <span class="service-badge">Premium</span>
+      <div class="service-name">Premium</div>
+      <p class="service-desc">La experiencia de detailing definitiva. Tratamiento integral de cada superficie de su vehículo.</p>
+      <ul class="service-features">
+        <li>Todo el servicio Medio</li>
+        <li>Tratamiento de llantas</li>
+        <li>Limpieza de tapicería</li>
+        <li>Hidratación de cuero</li>
+        <li>Protección de pintura</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRECIOS -->
+<div class="pricing-section" id="precios">
+  <div class="pricing-inner">
+    <div class="fade-in">
+      <p class="section-label">Tarifas Transparentes</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:end;">
+        <h2 class="section-title">Precios según<br><span class="gold">Tamaño</span></h2>
+        <p class="section-sub">Seleccione el tamaño de su vehículo. Los precios se actualizan instantáneamente. Sin sorpresas ni costes ocultos.</p>
+      </div>
+    </div>
+    <div class="size-selector fade-in">
+      <button class="size-btn active" data-size="S" onclick="selectSize('S',this)">Pequeño (S)</button>
+      <button class="size-btn" data-size="M" onclick="selectSize('M',this)">Mediano (M)</button>
+      <button class="size-btn" data-size="L" onclick="selectSize('L',this)">Grande (L)</button>
+      <span style="font-size:0.65rem;color:#555;align-self:center;letter-spacing:0.1em;margin-left:0.5rem;">— Supermini · Citadino · SUV / Monovolumen</span>
+    </div>
+    <div class="pricing-grid fade-in">
+      <!-- Básico -->
+      <div class="price-card">
+        <div class="price-tier">Nivel 01</div>
+        <div class="price-tag"><span class="euro">€</span><span class="price-num" id="price-basico">50</span></div>
+        <div class="price-name">Básico</div>
+        <ul class="price-features">
+          <li><span class="check">✦</span> Salpicadero y habitáculo</li>
+          <li><span class="check">✦</span> Aspirado completo</li>
+          <li><span class="check">✦</span> Lavado exterior</li>
+          <li><span class="check">✦</span> Secado técnico</li>
+        </ul>
+        <a href="#contacto" class="price-cta price-cta-outline">Reservar</a>
+      </div>
+      <!-- Medio -->
+      <div class="price-card featured-price">
+        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0a0a0a;font-size:0.6rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:0.3rem 1.2rem;white-space:nowrap;">Más Solicitado</div>
+        <div class="price-tier" style="margin-top:1rem;">Nivel 02</div>
+        <div class="price-tag"><span class="euro">€</span><span class="price-num" id="price-medio">75</span></div>
+        <div class="price-name" style="color:var(--gold-light);">Medio</div>
+        <ul class="price-features">
+          <li><span class="check">✦</span> Todo el servicio Básico</li>
+          <li><span class="check">✦</span> Detailing completo</li>
+          <li><span class="check">✦</span> Plásticos y cristales</li>
+          <li><span class="check">✦</span> Ambientador premium</li>
+        </ul>
+        <a href="#contacto" class="price-cta price-cta-main">Reservar Ahora</a>
+      </div>
+      <!-- Premium -->
+      <div class="price-card">
+        <div class="price-tier">Nivel 03</div>
+        <div class="price-tag"><span class="euro">€</span><span class="price-num" id="price-premium">100</span></div>
+        <div class="price-name">Premium</div>
+        <ul class="price-features">
+          <li><span class="check">✦</span> Todo el servicio Medio</li>
+          <li><span class="check">✦</span> Tratamiento de llantas</li>
+          <li><span class="check">✦</span> Limpieza de tapicería</li>
+          <li><span class="check">✦</span> Protección de pintura</li>
+        </ul>
+        <a href="#contacto" class="price-cta price-cta-outline">Reservar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- A DOMICILIO -->
+<div id="domicilio" style="padding:7rem 0;max-width:1200px;margin:0 auto;padding-left:2rem;padding-right:2rem;">
+  <div class="fade-in" style="margin-bottom:3rem;">
+    <p class="section-label">Comodidad Absoluta</p>
+    <h2 class="section-title">En tu puerta,<br><span class="gold">Rápido y Fácil</span></h2>
+  </div>
+  <div class="domicilio-wrap fade-in">
+    <div class="domicilio-left">
+      <p style="font-size:0.78rem;font-weight:300;color:#6a6a6a;line-height:2;margin-bottom:0.5rem;">Servicios profesionales de detailing en la comodidad de su hogar, oficina o urbanización. Sin desplazamientos, sin esperas. La excelencia llega hasta usted.</p>
+      <ul class="domicilio-points">
+        <li>
+          <span class="num">01</span>
+          <div class="text">
+            <h4>Reserva en minutos</h4>
+            <p>Contacte por WhatsApp o teléfono y coordinamos su cita de forma inmediata.</p>
+          </div>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <div class="text">
+            <h4>Llegamos equipados</h4>
+            <p>Toda la maquinaria y productos premium necesarios en un solo desplazamiento.</p>
+          </div>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <div class="text">
+            <h4>Resultado impecable</h4>
+            <p>Acabado de showroom garantizado. Su vehículo, como el primer día.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="domicilio-right">
+      <div style="margin-bottom:2rem;">
+        <div style="font-size:3.5rem;font-weight:900;color:rgba(201,168,76,0.15);letter-spacing:-0.04em;line-height:1;">DOOR<br>TO<br>DOOR</div>
+      </div>
+      <p class="section-label" style="margin-bottom:1.5rem;">Cobertura en</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.6rem;">
+        <span style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:0.5px solid rgba(201,168,76,0.3);color:var(--gold);padding:0.4rem 0.9rem;">Marbella</span>
+        <span style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:0.5px solid rgba(255,255,255,0.1);color:#888;padding:0.4rem 0.9rem;">Puerto Banús</span>
+        <span style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:0.5px solid rgba(255,255,255,0.1);color:#888;padding:0.4rem 0.9rem;">San Pedro</span>
+        <span style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:0.5px solid rgba(255,255,255,0.1);color:#888;padding:0.4rem 0.9rem;">Estepona</span>
+        <span style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:0.5px solid rgba(255,255,255,0.1);color:#888;padding:0.4rem 0.9rem;">Benahavís</span>
+        <span style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:0.5px solid rgba(255,255,255,0.08);color:#555;padding:0.4rem 0.9rem;">+consultar</span>
+      </div>
+      <a href="https://wa.me/34683494559?text=Hola, me interesa el servicio a domicilio de Lavage Unique" style="display:inline-block;margin-top:2.5rem;" class="btn-primary">Reservar a Domicilio →</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="fade-in">
+    <p class="section-label">Nuestro Trabajo</p>
+    <h2 class="section-title">Acabados<br><span class="gold">Espejo</span></h2>
+  </div>
+  <div class="gallery-grid fade-in">
+    <div class="gallery-item" style="border:0.5px solid rgba(255,255,255,0.06);">
+      <div class="gallery-img g1" style="height:100%;min-height:460px;position:relative;">
+        <!-- Abstract luxury car reflection art -->
+        <svg viewBox="0 0 400 460" style="width:100%;height:100%;position:absolute;inset:0;" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="460" fill="#13141a"/>
+          <ellipse cx="200" cy="320" rx="180" ry="80" fill="rgba(201,168,76,0.04)"/>
+          <path d="M60 310 Q80 240 160 200 Q220 175 280 175 Q340 175 370 215 Q390 240 385 310 Z" fill="rgba(30,32,42,0.8)" stroke="rgba(201,168,76,0.2)" stroke-width="0.8"/>
+          <path d="M130 200 Q160 155 220 145 Q280 135 330 160 Q360 175 370 210 Q350 220 310 225 Q260 232 190 232 Z" fill="rgba(25,27,36,0.9)" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
+          <path d="M145 198 Q175 158 225 148 Q280 138 325 162 Q305 172 280 178 Q240 186 185 190 Z" fill="rgba(120,180,220,0.06)" stroke="rgba(150,210,255,0.12)" stroke-width="0.4"/>
+          <circle cx="128" cy="315" r="36" fill="#0f1014" stroke="rgba(201,168,76,0.35)" stroke-width="1.2"/>
+          <circle cx="128" cy="315" r="24" fill="#0c0d10" stroke="rgba(201,168,76,0.2)" stroke-width="0.8"/>
+          <circle cx="128" cy="315" r="8" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
+          <circle cx="338" cy="315" r="36" fill="#0f1014" stroke="rgba(201,168,76,0.35)" stroke-width="1.2"/>
+          <circle cx="338" cy="315" r="24" fill="#0c0d10" stroke="rgba(201,168,76,0.2)" stroke-width="0.8"/>
+          <circle cx="338" cy="315" r="8" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
+          <line x1="128" y1="291" x2="128" y2="315" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <line x1="128" y1="315" x2="128" y2="339" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <line x1="104" y1="315" x2="152" y2="315" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <line x1="111" y1="298" x2="145" y2="332" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <line x1="145" y1="298" x2="111" y2="332" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <line x1="338" y1="291" x2="338" y2="315" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <line x1="338" y1="315" x2="338" y2="339" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <line x1="314" y1="315" x2="362" y2="315" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <line x1="321" y1="298" x2="355" y2="332" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <line x1="355" y1="298" x2="321" y2="332" stroke="rgba(201,168,76,0.25)" stroke-width="0.7"/>
+          <path d="M60 310 Q200 360 385 310" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="0.5"/>
+          <text x="200" y="420" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" font-weight="600" letter-spacing="5" fill="rgba(201,168,76,0.3)" text-transform="uppercase">ACABADO ESPEJO</text>
+        </svg>
+      </div>
+      <div class="gallery-overlay"><span class="gallery-label">Detailing Integral</span></div>
+    </div>
+    <div class="gallery-item" style="border:0.5px solid rgba(255,255,255,0.06);">
+      <div class="gallery-img g2" style="height:100%;position:relative;">
+        <svg viewBox="0 0 200 220" style="width:100%;height:100%;position:absolute;inset:0;" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="220" fill="#111620"/>
+          <circle cx="100" cy="110" r="70" fill="rgba(201,168,76,0.03)" stroke="rgba(201,168,76,0.12)" stroke-width="0.5"/>
+          <circle cx="100" cy="110" r="50" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="0.4"/>
+          <circle cx="100" cy="110" r="18" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.25)" stroke-width="0.8"/>
+          <line x1="100" y1="40" x2="100" y2="92" stroke="rgba(201,168,76,0.2)" stroke-width="0.7"/>
+          <line x1="100" y1="128" x2="100" y2="180" stroke="rgba(201,168,76,0.2)" stroke-width="0.7"/>
+          <line x1="30" y1="110" x2="82" y2="110" stroke="rgba(201,168,76,0.2)" stroke-width="0.7"/>
+          <line x1="118" y1="110" x2="170" y2="110" stroke="rgba(201,168,76,0.2)" stroke-width="0.7"/>
+          <line x1="51" y1="61" x2="86" y2="96" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
+          <line x1="114" y1="124" x2="149" y2="159" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
+          <line x1="149" y1="61" x2="114" y2="96" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
+          <line x1="86" y1="124" x2="51" y2="159" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
+          <text x="100" y="195" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" letter-spacing="3" fill="rgba(201,168,76,0.35)">LLANTAS</text>
+        </svg>
+      </div>
+      <div class="gallery-overlay"><span class="gallery-label">Tratamiento Llantas</span></div>
+    </div>
+    <div class="gallery-item" style="border:0.5px solid rgba(255,255,255,0.06);">
+      <div class="gallery-img g3" style="height:100%;position:relative;">
+        <svg viewBox="0 0 200 220" style="width:100%;height:100%;position:absolute;inset:0;" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="220" fill="#141410"/>
+          <path d="M40 80 Q100 40 160 80 L160 160 Q100 180 40 160 Z" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.15)" stroke-width="0.6"/>
+          <path d="M65 95 Q100 75 135 95 L135 145 Q100 158 65 145 Z" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.1)" stroke-width="0.4"/>
+          <line x1="100" y1="40" x2="100" y2="180" stroke="rgba(201,168,76,0.08)" stroke-width="0.4"/>
+          <line x1="40" y1="120" x2="160" y2="120" stroke="rgba(201,168,76,0.08)" stroke-width="0.4"/>
+          <text x="100" y="200" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" letter-spacing="3" fill="rgba(201,168,76,0.35)">TAPICERÍA</text>
+        </svg>
+      </div>
+      <div class="gallery-overlay"><span class="gallery-label">Interior Premium</span></div>
+    </div>
+    <div class="gallery-item" style="border:0.5px solid rgba(255,255,255,0.06);">
+      <div class="gallery-img g4" style="height:100%;position:relative;">
+        <svg viewBox="0 0 200 220" style="width:100%;height:100%;position:absolute;inset:0;" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="220" fill="#101414"/>
+          <rect x="30" y="50" width="140" height="120" rx="2" fill="rgba(0,196,204,0.04)" stroke="rgba(0,196,204,0.12)" stroke-width="0.5"/>
+          <rect x="50" y="70" width="100" height="80" rx="1" fill="rgba(0,196,204,0.03)" stroke="rgba(0,196,204,0.08)" stroke-width="0.4"/>
+          <line x1="30" y1="50" x2="170" y2="170" stroke="rgba(0,196,204,0.08)" stroke-width="0.4"/>
+          <line x1="170" y1="50" x2="30" y2="170" stroke="rgba(0,196,204,0.08)" stroke-width="0.4"/>
+          <circle cx="100" cy="110" r="30" fill="none" stroke="rgba(0,196,204,0.15)" stroke-width="0.6"/>
+          <text x="100" y="200" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" letter-spacing="3" fill="rgba(0,196,204,0.35)">CRISTALES</text>
+        </svg>
+      </div>
+      <div class="gallery-overlay"><span class="gallery-label">Lustre de Cristales</span></div>
+    </div>
+    <div class="gallery-item" style="border:0.5px solid rgba(255,255,255,0.06);">
+      <div class="gallery-img g5" style="height:100%;position:relative;">
+        <svg viewBox="0 0 200 220" style="width:100%;height:100%;position:absolute;inset:0;" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="220" fill="#141418"/>
+          <path d="M100 40 L130 90 L185 95 L145 135 L158 190 L100 162 L42 190 L55 135 L15 95 L70 90 Z" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.18)" stroke-width="0.6"/>
+          <path d="M100 65 L120 100 L158 104 L130 130 L140 167 L100 148 L60 167 L70 130 L42 104 L80 100 Z" fill="rgba(201,168,76,0.03)" stroke="rgba(201,168,76,0.1)" stroke-width="0.4"/>
+          <text x="100" y="205" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" letter-spacing="3" fill="rgba(201,168,76,0.35)">PREMIUM</text>
+        </svg>
+      </div>
+      <div class="gallery-overlay"><span class="gallery-label">Protección Pintura</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACTO -->
+<div class="contact-section" id="contacto">
+  <div class="contact-inner">
+    <div class="fade-in">
+      <p class="section-label">Hablemos</p>
+      <h2 class="section-title">Reserva tu<br><span class="gold">Cita</span></h2>
+      <p class="section-sub" style="margin:1.5rem 0 3rem;">Estamos disponibles para atenderle en Marbella y sus alrededores. Contáctenos por cualquier vía.</p>
+      <a href="https://wa.me/34683494559" class="contact-link" target="_blank">
+        <span class="contact-icon">📱</span>
+        <div class="contact-text">
+          <h4>WhatsApp · Llamada</h4>
+          <p>683 494 559</p>
+        </div>
+      </a>
+      <a href="mailto:lavageuniquemarbella@gmail.com" class="contact-link">
+        <span class="contact-icon">✉</span>
+        <div class="contact-text">
+          <h4>Email</h4>
+          <p>lavageuniquemarbella@gmail.com</p>
+        </div>
+      </a>
+      <a href="https://instagram.com/lavageuniquemarbella" target="_blank" class="contact-link">
+        <span class="contact-icon">◈</span>
+        <div class="contact-text">
+          <h4>Instagram</h4>
+          <p>@lavageuniquemarbella</p>
+        </div>
+      </a>
+      <div style="display:flex;gap:1rem;margin-top:2rem;">
+        <a href="https://wa.me/34683494559?text=Hola, me interesa reservar un servicio de Lavage Unique" target="_blank" class="btn-primary" style="font-size:0.68rem;">WhatsApp →</a>
+        <a href="tel:+34683494559" class="btn-secondary" style="font-size:0.68rem;">Llamar</a>
+      </div>
+    </div>
+    <!-- <div class="fade-in">
+      <div style="background:rgba(255,255,255,0.02);border:0.5px solid rgba(255,255,255,0.07);padding:2.5rem;">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" placeholder="Su nombre">
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="+34 000 000 000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Vehículo</label>
+          <input type="text" placeholder="Marca, modelo y año">
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Servicio</label>
+            <select>
+              <option value="">Seleccionar...</option>
+              <option>Básico</option>
+              <option>Medio</option>
+              <option>Premium</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tamaño</label>
+            <select>
+              <option value="">Seleccionar...</option>
+              <option>S – Pequeño</option>
+              <option>M – Mediano</option>
+              <option>L – Grande</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Dirección (si es a domicilio)</label>
+          <input type="text" placeholder="Marbella, Puerto Banús...">
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea rows="3" placeholder="Cualquier detalle adicional sobre su vehículo..."></textarea>
+        </div>
+        <button onclick="submitForm()" class="btn-primary" style="width:100%;text-align:center;border:none;padding:1rem;">Enviar Solicitud de Reserva</button>
+      </div>
+    </div> -->
+    <form
+  action="https://formspree.io/f/mdajbvjd"
+  method="POST"
+  onsubmit="handleSubmit(event)"
+  style="background:rgba(255,255,255,0.02);border:0.5px solid rgba(255,255,255,0.07);padding:2.5rem;"
+>
+  <!-- Campo honeypot anti-spam (oculto) -->
+  <input type="text" name="_gotcha" style="display:none">
+
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" name="name" placeholder="Su nombre completo" required>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" placeholder="correo@ejemplo.com" required>
+    </div>
+  </div>
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Teléfono</label>
+      <input type="tel" name="telefono" placeholder="+34 000 000 000">
+    </div>
+    <div class="form-group">
+      <label>Vehículo</label>
+      <input type="text" name="vehiculo" placeholder="Marca, modelo y año">
+    </div>
+  </div>
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Servicio</label>
+      <select name="servicio">
+        <option value="">Seleccionar...</option>
+        <option>Básico</option>
+        <option>Medio</option>
+        <option>Premium</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Tamaño</label>
+      <select name="tamano">
+        <option value="">Seleccionar...</option>
+        <option>S – Pequeño</option>
+        <option>M – Mediano</option>
+        <option>L – Grande</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Dirección (si es a domicilio)</label>
+    <input type="text" name="direccion" placeholder="Marbella, Puerto Banús...">
+  </div>
+  <div class="form-group">
+    <label>Mensaje</label>
+    <textarea name="message" rows="3" placeholder="Cualquier detalle adicional sobre su vehículo..."></textarea>
+  </div>
+
+  <div id="form-status"></div>
+  <button type="submit" class="btn-primary" style="width:100%;text-align:center;border:none;padding:1rem;">
+    Enviar Solicitud de Reserva
+  </button>
+</form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Lavage<span class="gold">Unique</span></div>
+      <div class="footer-copy" style="margin-top:0.5rem;">Lavado y Detailing de Lujo · Marbella · Costa del Sol</div>
+    </div>
+    <div class="footer-social">
+      <a href="https://wa.me/34683494559" target="_blank" title="WhatsApp">WA</a>
+      <a href="https://instagram.com/lavageuniquemarbella" target="_blank" title="Instagram">IG</a>
+      <a href="mailto:lavageuniquemarbella@gmail.com" title="Email">@</a>
+      <a href="tel:+34683494559" title="Llamar">☏</a>
+    </div>
+    <div class="footer-copy">© 2025 Lavage Unique · Todos los derechos reservados</div>
+  </div>
+</footer>
+
+<script>
+const prices = {
+  S: { basico: 50, medio: 75, premium: 100 },
+  M: { basico: 65, medio: 80, premium: 125 },
+  L: { basico: 75, medio: 100, premium: 170 }
+};
+
+function selectSize(size, btn) {
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const ids = ['basico', 'medio', 'premium'];
+  ids.forEach(id => {
+    const el = document.getElementById('price-' + id);
+    el.classList.add('updating');
+  });
+  setTimeout(() => {
+    ids.forEach(id => {
+      const el = document.getElementById('price-' + id);
+      el.textContent = prices[size][id];
+      el.classList.remove('updating');
+    });
+  }, 220);
+}
+
+// function submitForm() {
+//   const btn = event.target;
+//   btn.textContent = '✦ Solicitud enviada — nos pondremos en contacto';
+//   btn.style.background = 'rgba(201,168,76,0.15)';
+//   btn.style.color = 'var(--gold)';
+//   btn.style.border = '0.5px solid rgba(201,168,76,0.3)';
+//   btn.disabled = true;
+// }
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const status = document.getElementById('form-status');
+
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      status.innerHTML = '<p style="color:#C9A84C;font-size:0.74rem;letter-spacing:0.08em;margin-bottom:1rem;">✦ Solicitud enviada — nos pondremos en contacto en breve.</p>';
+      form.reset();
+      btn.textContent = 'Enviado';
+      btn.style.background = 'rgba(201,168,76,0.15)';
+      btn.style.color = 'var(--gold)';
+      btn.style.border = '0.5px solid rgba(201,168,76,0.3)';
+    } else {
+      throw new Error();
+    }
+  } catch {
+    status.innerHTML = '<p style="color:#c0392b;font-size:0.74rem;margin-bottom:1rem;">Error al enviar. Por favor llámenos directamente al 683 494 559.</p>';
+    btn.textContent = 'Reintentar';
+    btn.disabled = false;
+  }
+}
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Lang toggle
+document.querySelectorAll('.lang span').forEach(s => {
+  if (s.textContent === '|') return;
+  s.style.cursor = 'pointer';
+  s.addEventListener('click', () => {
+    document.querySelectorAll('.lang span').forEach(x => x.classList.remove('active'));
+    s.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
